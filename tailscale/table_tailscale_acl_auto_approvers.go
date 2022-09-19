@@ -7,6 +7,7 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 	// "github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
+
 //// TABLE DEFINITION
 
 func tableTailscaleAclAutoApprovers(_ context.Context) *plugin.Table {
@@ -50,16 +51,13 @@ func tableTailscaleAclAutoApprovers(_ context.Context) *plugin.Table {
 
 func listTailscaleAclAutoApprovers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	// Create client
-	client, err := connect(ctx, d)
+	acl, err := listTailscaleAcl(ctx, d, h)
+
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclEntry", "connection_error", err)
+		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSsh", "connection_error", err)
 		return nil, err
-	}
-	acl, err := client.ACL(ctx)
-	if err != nil {
-		return nil, err
-	}
+	} else {
 		d.StreamListItem(ctx, acl.AutoApprovers)
 		return nil, nil
 	}
-
+}

@@ -65,18 +65,15 @@ func tablelistTailscaleAclSsh(_ context.Context) *plugin.Table {
 }
 
 func listTailscaleAclSsh(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	// Create client
-	client, err := connect(ctx, d)
+	acl, err := listTailscaleAcl(ctx, d, h)
+
 	if err != nil {
 		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSsh", "connection_error", err)
 		return nil, err
-	}
-	acl, err := client.ACL(ctx)
-	if err != nil {
-		return nil, err
-	}
-	for _, element := range acl.SSH {
+	} else {
+	for _, element := range acl.SSH{
 		d.StreamListItem(ctx, element)
 	}
-	return nil, nil
+		return nil, nil
+}
 }
