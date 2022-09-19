@@ -20,29 +20,28 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 
 	// Default to using env vars (#2)
 	apiKey := os.Getenv("TAILSCALE_API_KEY")
-	tailnet := os.Getenv("TAILSCALE_TAILNET")
+	tailnetName := os.Getenv("TAILSCALE_TAILNET_NAME")
 
 	// But prefer the config (#1)
 	tailscaleConfig := GetConfig(d.Connection)
 	if tailscaleConfig.APIKey != nil {
 		apiKey = *tailscaleConfig.APIKey
 	}
-	if tailscaleConfig.Tailnet != nil {
-		tailnet = *tailscaleConfig.Tailnet
+	if tailscaleConfig.TailnetName != nil {
+		tailnetName = *tailscaleConfig.TailnetName
 	}
 
-	if apiKey == "" || tailnet == "" {
+	if apiKey == "" || tailnetName == "" {
 		// Credentials not set
 		return nil, errors.New("api_key and tailnet must be configured")
 	}
 
 	// Configure to automatically wait 1 sec between requests, per Zoom API requirements
-	conn, err := tailscale.NewClient(apiKey, tailnet)
+	conn, err := tailscale.NewClient(apiKey, tailnetName)
+
 	if err != nil {
-		// ct.Fatalln(err)
+		d.ConnectionManager.Cache.Set(cacheKey, conn)
 	}
-	// Save to cache
-	d.ConnectionManager.Cache.Set(cacheKey, conn)
 
 	return conn, nil
 }

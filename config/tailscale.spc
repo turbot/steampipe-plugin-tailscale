@@ -1,7 +1,7 @@
 connection "tailscale" {
   plugin = "tailscale"
 
-  # Account or user API token
-  # This can also be set via the `TAILSCALE_API_KEY` environment variable.
-  api_key = "tskey-kzvTmC4CNTRL-VroJva2QsJjLNr3A6JMv93"
-  tailnet = "turbot.com"
+  # TODO
+  api_key = "abcde-krSvfN1CNTRL-M67st8X5o1234567"
+  tailnet_name = "test@test.com"
+}
