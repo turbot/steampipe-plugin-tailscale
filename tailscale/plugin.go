@@ -21,6 +21,9 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		TableMap: map[string]*plugin.Table{
 			"tailscale_device": tableTailscaleDevice(ctx),
+			"tailscale_acl_entry": tableTailscaleAclEntry(ctx),
+			"tailscale_acl_auto_approvers": tableTailscaleAclAutoApprovers(ctx),
+			"tailscale_acl_ssh": tablelistTailscaleAclSsh(ctx),
 		},
 	}
 
