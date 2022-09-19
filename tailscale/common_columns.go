@@ -24,7 +24,6 @@ func defaultColumns(columns []*plugin.Column) []*plugin.Column {
 	return append(columns, commonColumns()...)
 }
 
-// get columns which are returned with all tables: region, partition and account
 func getTailscaleTailnet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	config := GetConfig(d.Connection)
 	if config.TailnetName != nil {
