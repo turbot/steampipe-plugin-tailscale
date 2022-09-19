@@ -18,7 +18,7 @@ func tableTailscaleTailnet(_ context.Context) *plugin.Table {
 			Hydrate:    getTailscaleTailnet,
 			KeyColumns: plugin.OptionalColumns([]string{"tailnet_name"}),
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "dns_nameservers",
 				Description: "The lists of DNS nameservers for a tailnet.",
@@ -48,7 +48,7 @@ func tableTailscaleTailnet(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromValue(),
 			},
-		},
+		}),
 	}
 }
 
