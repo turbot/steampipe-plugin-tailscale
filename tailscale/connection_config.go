@@ -6,11 +6,15 @@ import (
 )
 
 type tailscaleConfig struct {
-	APIKey    *string `cty:"api_key"`
+	APIKey  *string `ctx:"api_key"`
+	Tailnet *string `ctx:"tailnet"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
 	"api_key": {
+		Type: schema.TypeString,
+	},
+	"tailnet": {
 		Type: schema.TypeString,
 	},
 }

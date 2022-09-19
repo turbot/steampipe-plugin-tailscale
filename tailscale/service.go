@@ -2,40 +2,47 @@ package tailscale
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"os"
 
-	"https://github.com/pulumi/pulumi-tailscale"
+	"github.com/tailscale/tailscale-client-go/tailscale"
+
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 )
 
-// getSessionConfig :: returns tailscale client to perform API requests
-func getSessionConfig(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error) {
-	// Load clientOptions from cache
-	sessionCacheKey := "tailscale.clientoption"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(sessionCacheKey); ok {
+func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error) {
+
+	// Load connection from cache, which preserves throttling protection etc
+	cacheKey := "tailscale"
+	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
 		return cachedData.(*tailscale.Client), nil
 	}
 
-	// Get tailscale config
+	// Default to using env vars (#2)
+	apiKey := os.Getenv("TAILSCALE_API_KEY")
+	tailnet := os.Getenv("TAILSCALE_TAILNET")
+
+	// But prefer the config (#1)
 	tailscaleConfig := GetConfig(d.Connection)
-
-	// Get the authorization token
-	token := os.Getenv("TAILSCALE_TOKEN")
-	if tailscaleConfig.Token != nil {
-		token = *tailscaleConfig.Token
+	if tailscaleConfig.APIKey != nil {
+		apiKey = *tailscaleConfig.APIKey
+	}
+	if tailscaleConfig.Tailnet != nil {
+		tailnet = *tailscaleConfig.Tailnet
 	}
 
-	// No creds
-	if token == "" {
-		return nil, fmt.Errorf("API KEY must be configured")
+	if apiKey == "" || tailnet == "" {
+		// Credentials not set
+		return nil, errors.New("api_key and tailnet must be configured")
 	}
 
-	// Create client
-	client := tailscale.NewClient(token)
+	// Configure to automatically wait 1 sec between requests, per Zoom API requirements
+	conn, err := tailscale.NewClient(apiKey, tailnet)
+	if err != nil {
+		// ct.Fatalln(err)
+	}
+	// Save to cache
+	d.ConnectionManager.Cache.Set(cacheKey, conn)
 
-	// save clientOptions in cache
-	d.ConnectionManager.Cache.Set(sessionCacheKey, client)
-
-	return client, nil
+	return conn, nil
 }
