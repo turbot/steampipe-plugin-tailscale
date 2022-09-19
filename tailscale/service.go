@@ -41,6 +41,7 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 
 	if err != nil {
 		d.ConnectionManager.Cache.Set(cacheKey, conn)
+		return nil, err
 	}
 
 	return conn, nil
