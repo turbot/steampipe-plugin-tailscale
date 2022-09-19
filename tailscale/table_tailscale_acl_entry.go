@@ -5,7 +5,6 @@ import (
 
 	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	// "github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
 //// TABLE DEFINITION
@@ -13,20 +12,10 @@ import (
 func tableTailscaleAclEntry(_ context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "tailscale_acl_entry",
-		Description: "Tailscale Acl Entry.",
+		Description: "Tailscale ACL Entry.",
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleAclEntry,
-			// KeyColumns: []*plugin.KeyColumn{
-			// 	{
-			// 		Name:    "name",
-			// 		Require: plugin.Optional,
-			// 	},
-			// },
 		},
-		// Get: &plugin.GetConfig{
-		// 	Hydrate:    gettailscaleVendor,
-		// 	KeyColumns: plugin.SingleColumn("id"),
-		// },
 		Columns: []*plugin.Column{
 			{
 				Name:        "action",
@@ -58,27 +47,21 @@ func tableTailscaleAclEntry(_ context.Context) *plugin.Table {
 				Description: ".",
 				Type:        proto.ColumnType_STRING,
 			},
-			// Steampipe standard columns
-			// {
-			// 	Name:        "title",
-			// 	Description: "Title of the resource.",
-			// 	Type:        proto.ColumnType_STRING,
-			// 	Transform:   transform.FromField("Name"),
-			// },
 		},
 	}
 }
 
 func listTailscaleAclEntry(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	acl, err := listTailscaleAcl(ctx, d, h)
 
+	// retrieves the ACL that is currently set for the given tailnet.
+	acl, err := getTailscaleAcl(ctx, d, h)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclEntry", "connection_error", err)
+		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSsh", "connection_error", err)
 		return nil, err
-	} else {
-	for _, element := range acl.ACLs{
+	}
+
+	for _, element := range acl.ACLs {
 		d.StreamListItem(ctx, element)
 	}
-		return nil, nil
-}
+	return nil, nil
 }

@@ -5,7 +5,6 @@ import (
 
 	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	// "github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
 //// TABLE DEFINITION
@@ -16,17 +15,7 @@ func tablelistTailscaleAclSsh(_ context.Context) *plugin.Table {
 		Description: "Tailscale Acl Ssh.",
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleAclSsh,
-			// KeyColumns: []*plugin.KeyColumn{
-			// 	{
-			// 		Name:    "name",
-			// 		Require: plugin.Optional,
-			// 	},
-			// },
 		},
-		// Get: &plugin.GetConfig{
-		// 	Hydrate:    gettailscaleVendor,
-		// 	KeyColumns: plugin.SingleColumn("id"),
-		// },
 		Columns: []*plugin.Column{
 			{
 				Name:        "action",
@@ -53,27 +42,21 @@ func tablelistTailscaleAclSsh(_ context.Context) *plugin.Table {
 				Description: ".",
 				Type:        proto.ColumnType_TIMESTAMP,
 			},
-			// Steampipe standard columns
-			// {
-			// 	Name:        "title",
-			// 	Description: "Title of the resource.",
-			// 	Type:        proto.ColumnType_STRING,
-			// 	Transform:   transform.FromField("Name"),
-			// },
 		},
 	}
 }
 
 func listTailscaleAclSsh(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	acl, err := listTailscaleAcl(ctx, d, h)
 
+	// retrieves the ACL that is currently set for the given tailnet.
+	acl, err := getTailscaleAcl(ctx, d, h)
 	if err != nil {
 		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSsh", "connection_error", err)
 		return nil, err
-	} else {
-	for _, element := range acl.SSH{
+	}
+
+	for _, element := range acl.SSH {
 		d.StreamListItem(ctx, element)
 	}
-		return nil, nil
-}
+	return nil, nil
 }
