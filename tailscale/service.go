@@ -40,8 +40,8 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 	conn, err := tailscale.NewClient(apiKey, tailnetName)
 
 	if err != nil {
-		d.ConnectionManager.Cache.Set(cacheKey, conn)
+		return nil, err
 	}
-
+	d.ConnectionManager.Cache.Set(cacheKey, conn)
 	return conn, nil
 }
