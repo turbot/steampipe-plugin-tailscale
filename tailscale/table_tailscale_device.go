@@ -17,17 +17,7 @@ func tableTailscaleDevice(_ context.Context) *plugin.Table {
 		Description: "A Tailscale Device represents the devices under a tailnet.",
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleDevices,
-			// KeyColumns: []*plugin.KeyColumn{
-			// 	{
-			// 		Name:    "name",
-			// 		Require: plugin.Optional,
-			// 	},
-			// },
 		},
-		// Get: &plugin.GetConfig{
-		// 	Hydrate:    gettailscaleVendor,
-		// 	KeyColumns: plugin.SingleColumn("id"),
-		// },
 		Columns: []*plugin.Column{
 			{
 				Name:        "name",
@@ -39,6 +29,96 @@ func tableTailscaleDevice(_ context.Context) *plugin.Table {
 				Description: "An unique identifier of the device.",
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("ID"),
+			},
+			{
+				Name:        "authorized",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
+				Name:        "blocks_incoming_connections",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
+				Name:        "client_version",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "created",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+				// Type:        proto.ColumnType_TIMESTAMP,
+			},
+			{
+				Name:        "expires",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+				// Type:        proto.ColumnType_TIMESTAMP,
+			},
+			{
+				Name:        "hostname",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "is_external",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
+				Name:        "key_expiry_disabled",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
+				Name:        "last_seen",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+				// Type:        proto.ColumnType_TIMESTAMP,
+			},
+			{
+				Name:        "machine_key",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "node_key",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "os",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromField("OS"),
+			},
+			{
+				Name:        "update_available",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
+				Name:        "user",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "addresses",
+				Description: "The list of device's IPs.",
+				Type:        proto.ColumnType_JSON,
+			},
+			{
+				Name:        "device_routes",
+				Description: "An unique identifier of the device.",
+				Type:        proto.ColumnType_JSON,
+				Hydrate:     getTailscaleDeviceSubnetRoutes,
+			},
+			{
+				Name:        "tags",
+				Description: "The tags applied to the device.",
+				Type:        proto.ColumnType_JSON,
 			},
 
 			// Steampipe standard columns
@@ -55,16 +135,18 @@ func tableTailscaleDevice(_ context.Context) *plugin.Table {
 //// LIST FUNCTION
 
 func listTailscaleDevices(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	logger := plugin.Logger(ctx)
+
 	// Create client
 	client, err := connect(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_device.listTailscaleDevices", "connection_error", err)
+		logger.Error("tailscale_device.listTailscaleDevices", "connection_error", err)
 		return nil, err
 	}
 
 	devices, err := client.Devices(ctx)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_device.listTailscaleDevices", "api_error", err)
+		logger.Error("tailscale_device.listTailscaleDevices", "api_error", err)
 		return nil, err
 	}
 	for _, item := range devices {
@@ -74,19 +156,21 @@ func listTailscaleDevices(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	return nil, nil
 }
 
-func getTailscaleDevice(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	device := h.Item.(*tailscale.Device)
+func getTailscaleDeviceSubnetRoutes(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	logger := plugin.Logger(ctx)
+	device := h.Item.(tailscale.Device)
 	id := device.ID
+
 	// Create client
 	client, err := connect(ctx, d)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_device.listTailscaleDevices", "connection_error", err)
+		logger.Error("tailscale_device.getTailscaleDeviceRoutes", "connection_error", err)
 		return nil, err
 	}
 
 	deviceRoutes, err := client.DeviceSubnetRoutes(ctx, id)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_device.listTailscaleDevices", "api_error", err)
+		logger.Error("tailscale_device.getTailscaleDeviceRoutes", "api_error", err)
 		return nil, err
 	}
 
