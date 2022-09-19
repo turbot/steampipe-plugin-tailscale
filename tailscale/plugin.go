@@ -20,7 +20,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
-			"tailscale_device": tableTailscaleDevice(ctx),
+			"tailscale_device":  tableTailscaleDevice(ctx),
+			"tailscale_tailnet": tableTailscaleTailnet(ctx),
 		},
 	}
 
