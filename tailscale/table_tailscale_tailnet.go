@@ -21,7 +21,7 @@ func tableTailscaleTailnet(_ context.Context) *plugin.Table {
 		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "dns_nameservers",
-				Description: "The lists of DNS nameservers for a tailnet.",
+				Description: "The list of DNS nameservers for a tailnet.",
 				Type:        proto.ColumnType_JSON,
 				Hydrate:     getTailscaleDNSNameservers,
 				Transform:   transform.FromValue(),
@@ -35,7 +35,7 @@ func tableTailscaleTailnet(_ context.Context) *plugin.Table {
 			},
 			{
 				Name:        "dns_search_paths",
-				Description: "The list of search paths that is currently set for the given tailnet.",
+				Description: "The list of DNS search paths that is currently set for the given tailnet.",
 				Type:        proto.ColumnType_JSON,
 				Hydrate:     getTailscaleDNSSearchPaths,
 				Transform:   transform.FromValue(),
