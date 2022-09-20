@@ -26,7 +26,7 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 		Columns: []*plugin.Column{
 			{
 				Name:        "id",
-				Description: "An unique identifier of the device.",
+				Description: "An unique identifier of the tailnet key.",
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("ID"),
 			},
@@ -49,15 +49,15 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 				Name:        "capabilities",
 				Description: "The list of device capabilities.",
 				Type:        proto.ColumnType_JSON,
+				Transform:   transform.FromField("Capabilities"),
 			},
-
 			// Steampipe standard columns
-			// {
-			// 	Name:        "title",
-			// 	Description: "Title of the resource.",
-			// 	Type:        proto.ColumnType_STRING,
-			// 	Transform:   transform.FromField("Key"),
-			// },
+			{
+				Name:        "title",
+				Description: "Title of the resource.",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromField("Key"),
+			},
 		},
 	}
 }
@@ -76,17 +76,12 @@ func getTailscaleTailnetKey(ctx context.Context, d *plugin.QueryData, h *plugin.
 
 	id := d.KeyColumnQuals["id"].GetStringValue()
 
-	// key, err := client.GetKey(ctx, "kFXfcN2CNTRL")
-
 	key, err := client.GetKey(ctx, id)
 
 	if err != nil {
-		logger.Info("----------------------->>>>>>>>>>>>>>>>>>>>>>", err)
 		logger.Error("tailscale_device.getTailscaleTailnetKey", "api_error", err)
 		return nil, err
 	}
-	logger.Info("----------------------->>>>>>>>>>>>>>>>>>>>>>", key)
-	// d.StreamListItem(ctx, key)
 
 	return key, nil
 }
