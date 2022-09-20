@@ -2,7 +2,7 @@
 organization: Turbot
 category: ["saas"]
 icon_url: "/images/plugins/turbot/tailscale.svg"
-brand_color: "#8467F3"
+brand_color: "#000000"
 display_name: "tailscale"
 short_name: "tailscale"
 description: "Steampipe plugin to query VPN networks, devices and more from tailscale."
