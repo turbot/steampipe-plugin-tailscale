@@ -15,6 +15,7 @@ resource "tailscale_acl" "sample_acl" {
       "tag:stage":      ["tag:deployment"],
       "tag:development":  ["group:developer"],
       "tag:personal":  ["autogroup:members"],
+      "tag:application-exit-node": ["group:admin", "group:ops"],
     },
 
     "acls": [
@@ -62,5 +63,14 @@ resource "tailscale_acl" "sample_acl" {
         "users":  ["group:developer"],
       },
     ],
+    "autoApprovers": {
+      // exit nodes advertised by users in group:it or devices tagged
+      // tag:application-exit-node will be automatically approved
+      "exitNode": ["tag:application-exit-node", "group:ops"],
+      "routes": {
+        "10.0.0.0/16": ["tag:prod", "group:ops"],
+        "0.0.0.0/0": ["tag:development", "group:developer"],
+      },
+    },
   })
 }
