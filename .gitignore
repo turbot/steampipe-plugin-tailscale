@@ -26,4 +26,3 @@ node_modules
 
 # Ignore file types
 .vscode/launch.json
-.DS_Store
