@@ -4,6 +4,20 @@ A Tailscale device is any computer in the Tailnet.
 
 ## Examples
 
+### Basic info
+
+```sql
+select
+  id,
+  name,
+  addresses,
+  hostname,
+  created,
+  user
+from
+  tailscale_device;
+```
+
 ### Device count per OS
 
 ```sql

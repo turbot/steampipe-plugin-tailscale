@@ -4,6 +4,17 @@ The ACLs for the tailnet represent a list of access rules for your network.
 
 ## Examples
 
+### Basic Info
+
+```sql
+select
+  action,
+  source,
+  destination
+from
+  tailscale_acl_acl;
+```
+
 ### Get the list of devices that the user has access to
 
 ```sql

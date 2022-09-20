@@ -2,6 +2,8 @@
 
 Tailscale key gives access to the Tailscale API.
 
+The `tailscale_tailnet_key` table can be used to query information about any key, and **you must specify the id** in the where or join clause using the `id` column.
+
 ## Examples
 
 ### Basic Info

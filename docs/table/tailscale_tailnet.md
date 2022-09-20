@@ -39,3 +39,15 @@ select
 from
   tailscale_tailnet;
 ```
+
+### List users in each groups
+
+```sql
+select 
+    v as user_name,
+    g.key as group_name
+  from
+    tailscale_tailnet,
+    jsonb_each(acl_groups) as g,
+    jsonb_array_elements_text(g.value) as v
+```
