@@ -72,5 +72,49 @@ resource "tailscale_acl" "sample_acl" {
         "0.0.0.0/0": ["tag:development", "group:developer"],
       },
     },
+    "derpMap": {
+      "OmitDefaultRegions": true,
+      "Regions": {
+        "900": {
+          "RegionID": 900,
+          "RegionCode": "nyc",
+          "RegionName": "New York City",
+          "Nodes": [
+            {
+              "Name": "1a",
+              "RegionID": 900,
+              "HostName": "your-hostname.com"
+            },
+            {
+              "Name": "1b",
+              "RegionID": 900,
+              "HostName": "your-hostname.io"
+            },
+          ]
+        },
+        "901": {
+          "RegionID": 901,
+          "RegionCode": "sf",
+          "RegionName": "San Fancisco",
+          "Nodes": [
+            {
+              "Name": "1a",
+              "RegionID": 901,
+              "HostName": "imap.your-hostname.com"
+            },
+            {
+              "Name": "1a",
+              "RegionID": 901,
+              "HostName": "cdn.your-hostname.com"
+            },
+            {
+              "Name": "1a",
+              "RegionID": 901,
+              "HostName": "cdn.your-hostname.io"
+            },
+          ]
+        },
+      }
+    },
   })
 }
