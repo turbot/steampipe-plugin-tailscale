@@ -1,6 +1,6 @@
 # Table: tailscale_acl_acl
 
-The acls for the tailnet policy are a list of access rules for your network.
+The ACLs for the tailnet represent a list of access rules for your network.
 
 ## Examples
 
