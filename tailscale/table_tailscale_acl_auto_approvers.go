@@ -20,12 +20,12 @@ func tableTailscaleAclAutoApprover(_ context.Context) *plugin.Table {
 		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "routes",
-				Description: ".",
+				Description: "Subnet router defined for a given tailnet.",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
 				Name:        "exit_nodes",
-				Description: ".",
+				Description: "Device routing the traffic for a given tailnet.",
 				Type:        proto.ColumnType_JSON,
 			},
 		}),

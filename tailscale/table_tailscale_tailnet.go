@@ -40,7 +40,27 @@ func tableTailscaleTailnet(_ context.Context) *plugin.Table {
 				Hydrate:     getTailscaleDNSSearchPaths,
 				Transform:   transform.FromValue(),
 			},
-
+			{
+				Name:        "acl_groups",
+				Description: "The list of ACL groups that is currently set for the given tailnet.",
+				Type:        proto.ColumnType_JSON,
+				Hydrate:     getTailscaleAcl,
+				Transform:   transform.FromField("Groups"),
+			},
+			{
+				Name:        "acl_hosts",
+				Description: "The list of ACL hosts that is currently set for the given tailnet.",
+				Type:        proto.ColumnType_JSON,
+				Hydrate:     getTailscaleAcl,
+				Transform:   transform.FromField("Hosts"),
+			},
+			{
+				Name:        "acl_tag_owners",
+				Description: "The list of ACL tag owners that is currently set for the given tailnet.",
+				Type:        proto.ColumnType_JSON,
+				Hydrate:     getTailscaleAcl,
+				Transform:   transform.FromField("TagOwners"),
+			},
 			// Steampipe standard columns
 			{
 				Name:        "title",
