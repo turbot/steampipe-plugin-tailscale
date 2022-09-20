@@ -18,34 +18,58 @@ from
   tailscale_acl_ssh;
 ```
 
-### Display the SSH where users connect to their own devices
+### Display the users who use SSH to connect to their own devices
 
 ```sql
-select
+with ssh_tas as (
+  select
   action,
   users,
-  s,
-  d
+  src,
+  dst,
+  tailnet_name
 from
-  tailscale_acl_ssh,
-  jsonb_array_elements_text(source) as s,
-  jsonb_array_elements_text(destination) as d
+  tailscale_acl_ssh as tas,
+  jsonb_array_elements_text(source) as src,
+  jsonb_array_elements_text(destination) as dst
 where
-  action ='check' and s = 'autogroup:members' and d = 'autogroup:self'
+  action ='check' and src = 'autogroup:members' and dst = 'autogroup:self'
+)
+select
+  td.name as device_name,
+  td.user,
+  td.id
+from
+  tailscale_device as td join
+  ssh_tas on
+  ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
 ### Display the devices of users who are a direct member (not a shared user) of the tailnet
 
 ```sql
-select
+with ssh_tas as (
+  select
   action,
   users,
-  s
+  src,
+  dst,
+  tailnet_name
 from
-  tailscale_acl_ssh,
-  jsonb_array_elements_text(source) as s
+  tailscale_acl_ssh as tas,
+  jsonb_array_elements_text(source) as src,
+  jsonb_array_elements_text(destination) as dst
 where
-  s = 'autogroup:members' ;
+   src = 'autogroup:members'
+)
+select
+  td.name as device_name,
+  td.user,
+  td.id
+from
+  tailscale_device as td join
+  ssh_tas on
+  ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
 ### Display the devices of users that have check period enabled
