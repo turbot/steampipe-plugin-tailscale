@@ -8,7 +8,9 @@ Tailscale ACL DERP map defines the domains that will use Tailscale DERP servers
 
 ```sql
 select
-  regions
+  omit_default_regions,
+  regions,
+  tailnet_name
 from
   tailscale_acl_derp_map;
 ```
