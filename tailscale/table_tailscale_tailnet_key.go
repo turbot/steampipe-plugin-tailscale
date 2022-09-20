@@ -51,6 +51,7 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 				Transform:   transform.FromField("Capabilities"),
 			},
+
 			// Steampipe standard columns
 			{
 				Name:        "title",
@@ -75,9 +76,11 @@ func getTailscaleTailnetKey(ctx context.Context, d *plugin.QueryData, h *plugin.
 	}
 
 	id := d.KeyColumnQuals["id"].GetStringValue()
+	if id == "" {
+		return nil, nil
+	}
 
 	key, err := client.GetKey(ctx, id)
-
 	if err != nil {
 		logger.Error("tailscale_device.getTailscaleTailnetKey", "api_error", err)
 		return nil, err
