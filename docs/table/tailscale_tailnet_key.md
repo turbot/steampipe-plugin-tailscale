@@ -1,6 +1,6 @@
 # Table: tailscale_tailnet_key
 
-Tailscale key give access to the Tailscale API.
+Tailscale key gives access to the Tailscale API.
 
 ## Examples
 
