@@ -18,7 +18,7 @@ from
   tailscale_acl_ssh;
 ```
 
-### Display the users who use SSH to connect to their own devices
+### Display the users who cannot connect to their own devices
 
 ```sql
 with ssh_tas as (
@@ -33,10 +33,10 @@ from
   jsonb_array_elements_text(source) as src,
   jsonb_array_elements_text(destination) as dst
 where
-  action ='check' and src = 'autogroup:members' and dst = 'autogroup:self'
+  action <> 'check' or src <> 'autogroup:members' or dst <> 'autogroup:self'
 )
 select
-  td.name as device_name,
+  distinct(td.name) as device_name,
   td.user,
   td.id
 from
