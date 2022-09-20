@@ -4,7 +4,7 @@ The ACLs for the tailnet represent a list of access rules for your network.
 
 ## Examples
 
-### Get the users having access to each device
+### Get the list of devices that the user has access to
 
 ```sql
 with user_groups as (
