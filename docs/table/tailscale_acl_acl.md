@@ -63,7 +63,7 @@ with user_groups as (
     join user_perm u on u.destinations like '%'||d.tag||'%';
 ```
 
-### Get the devices that can be accessed by each device
+### Get the devices that can be accessed using each device
 
 ```sql
 with src_dest as (
