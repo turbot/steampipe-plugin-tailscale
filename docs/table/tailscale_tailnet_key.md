@@ -16,7 +16,7 @@ select
 from
   tailscale_tailnet_key
 where 
-  id ='kFXfcN2CNTRL';
+  id ='kFXfcN2CMDR';
 ```
 
 ### List keys that are expiring in next 90 days
