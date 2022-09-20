@@ -38,11 +38,10 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 
 	// Configure to automatically wait 1 sec between requests, per Zoom API requirements
 	conn, err := tailscale.NewClient(apiKey, tailnetName)
-
 	if err != nil {
-		d.ConnectionManager.Cache.Set(cacheKey, conn)
 		return nil, err
 	}
 
+	d.ConnectionManager.Cache.Set(cacheKey, conn)
 	return conn, nil
 }
