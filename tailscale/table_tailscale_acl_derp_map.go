@@ -20,8 +20,8 @@ func tableTailscaleAclDERPMap(_ context.Context) *plugin.Table {
 		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "omit_default_regions",
-				Description: "Regions to be omitted.",
-				Type:        proto.ColumnType_STRING,
+				Description: "If default regions should be omitted.",
+				Type:        proto.ColumnType_BOOL,
 			},
 			{
 				Name:        "regions",
