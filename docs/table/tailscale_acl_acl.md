@@ -4,7 +4,18 @@ The acls for the tailnet policy are a list of access rules for your network.
 
 ## Examples
 
-### Get the users having acces to each device
+### Basic Info
+
+```sql
+select
+  action,
+  source,
+  destination
+from
+  tailscale_acl_acl;
+```
+
+### Get users having acces to each device
 
 ```sql
 with user_groups as (
