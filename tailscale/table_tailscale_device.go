@@ -18,7 +18,7 @@ func tableTailscaleDevice(_ context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleDevices,
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "name",
 				Description: "The name of the device.",
@@ -128,7 +128,7 @@ func tableTailscaleDevice(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Name"),
 			},
-		},
+		}),
 	}
 }
 

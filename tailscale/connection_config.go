@@ -6,7 +6,7 @@ import (
 )
 
 type tailscaleConfig struct {
-	APIKey  		*string `cty:"api_key"`
+	APIKey      *string `cty:"api_key"`
 	TailnetName *string `cty:"tailnet_name"`
 }
 

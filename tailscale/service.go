@@ -33,15 +33,14 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 
 	if apiKey == "" || tailnetName == "" {
 		// Credentials not set
-		return nil, errors.New("api_key and tailnet must be configured")
+		return nil, errors.New("api_key and tailnet_name must be configured")
 	}
 
-	// Configure to automatically wait 1 sec between requests, per Zoom API requirements
 	conn, err := tailscale.NewClient(apiKey, tailnetName)
-
 	if err != nil {
 		return nil, err
 	}
+
 	d.ConnectionManager.Cache.Set(cacheKey, conn)
 	return conn, nil
 }
