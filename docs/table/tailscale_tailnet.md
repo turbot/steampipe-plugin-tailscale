@@ -56,8 +56,8 @@ from
 
 ```sql
 select 
-   v as owner,
-   g.key as tag
+  v as owner,
+  g.key as tag
 from
   tailscale_tailnet,
   jsonb_each(acl_tag_owners) as g,
