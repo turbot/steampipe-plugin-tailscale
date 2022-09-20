@@ -15,7 +15,7 @@ from
   tailscale_acl_acl;
 ```
 
-### Get users having acces to each device
+### Get the list of devices that the user has access to
 
 ```sql
 with user_groups as (
@@ -61,4 +61,8 @@ with user_groups as (
   from
     devices d
     join user_perm u on u.destinations like '%'||d.tag||'%';
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> main
