@@ -151,6 +151,7 @@ func listTailscaleDevices(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	}
 	for _, item := range devices {
 		d.StreamListItem(ctx, item)
+		// return nil
 	}
 
 	return nil, nil
