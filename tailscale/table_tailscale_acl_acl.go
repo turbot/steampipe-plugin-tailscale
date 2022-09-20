@@ -15,7 +15,7 @@ func tableTailscaleAclAcl(_ context.Context) *plugin.Table {
 		Name:        "tailscale_acl_acl",
 		Description: "Tailscale ACL acl.",
 		List: &plugin.ListConfig{
-			Hydrate: listTailscaleACLEntries,
+			Hydrate: listTailscaleAclACLs,
 		},
 		Columns: defaultColumns([]*plugin.Column{
 			{
@@ -52,7 +52,7 @@ func tableTailscaleAclAcl(_ context.Context) *plugin.Table {
 	}
 }
 
-func listTailscaleACLEntries(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTailscaleAclACLs(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	// retrieves the ACL that is currently set for the given tailnet.
 	getTailscaleAclCached := plugin.HydrateFunc(getTailscaleAcl).WithCache()
