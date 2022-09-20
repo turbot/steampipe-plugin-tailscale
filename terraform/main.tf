@@ -1,35 +1,65 @@
 resource "tailscale_acl" "sample_acl" {
     acl = jsonencode({
-    // Declare static groups of users beyond those in the identity service.
     "groups": {
-      "group:example": ["user1@example.com", "user2@example.com"],
+      "group:admin": ["luis@turbot.com", "karan@turbot.com"],
+      "group:ops": ["ved@turbot.com", "karan@turbot.com"],
+      "group:developer": ["madhushree@turbot.com", "karan@turbot.com"],
     },
-
-    "tagOwners": {
-      "tag:deployment": ["luis@turbot.com"],
-      "tag:prod":       ["tag:deployment"],
-      "tag:developer":  ["luis@turbot.com", "karan@turbot.com"],
-    },
-
-    // Declare convenient hostname aliases to use in place of IP addresses.
     "hosts": {
       "example-host-1": "100.100.100.100",
     },
 
-    // Access control lists.
+    "tagOwners": {
+      "tag:deployment": ["group:admin", "group:ops"],
+      "tag:prod":       ["tag:deployment"],
+      "tag:stage":      ["tag:deployment"],
+      "tag:development":  ["group:developer"],
+      "tag:personal":  ["autogroup:members"],
+    },
+
     "acls": [
-      // Match absolutely everything.
-      // Comment this section out if you want to define specific restrictions.
-      {"action": "accept", "users": ["*"], "ports": ["*:*"]},
+          // all employees can access their own devices
+      { "action": "accept", "src": ["autogroup:members"], "dst": ["autogroup:self:*"] },
+      {"action": "accept", "src": ["luis@turbot.com"], "dst": ["*:*"]},
+      {
+        "action": "accept",
+        "src":  ["group:admin"],
+        "dst":  ["tag:deployment:*"],
+      },
+      {
+        "action": "accept",
+        "src":  ["group:ops"],
+        "dst":  ["tag:prod:22"],
+      },
+      {
+        "action": "accept",
+        "src":  ["group:developer"],
+        "dst":  ["tag:development:*"],
+      },
+      {
+        "action": "accept",
+        "src":  ["tag:prod"],
+        "dst":  ["100.113.219.8:*"],
+      },
     ],
     "ssh": [
-      // Allow all users to SSH into their own devices in check mode.
-      // Comment this section out if you want to define specific restrictions.
       {
         "action": "check",
         "src":    ["autogroup:members"],
         "dst":    ["autogroup:self"],
         "users":  ["autogroup:nonroot", "root"],
+      },
+      {
+        "action": "accept",
+        "src":    ["tag:personal"],
+        "dst":    ["tag:development"],
+        "users":  ["group:developer", "group:admin", "group:ops"],
+      },
+      {
+        "action": "check",
+        "src":    ["group:developer"],
+        "dst":    ["tag:prod"],
+        "users":  ["group:developer"],
       },
     ],
   })
