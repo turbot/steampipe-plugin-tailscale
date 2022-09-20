@@ -15,9 +15,9 @@ func tableTailscaleAclEntry(_ context.Context) *plugin.Table {
 		Name:        "tailscale_acl_entry",
 		Description: "Tailscale ACL Entry.",
 		List: &plugin.ListConfig{
-			Hydrate: listTailscaleAclEntry,
+			Hydrate: listTailscaleACLEntries,
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "action",
 				Description: ".",
@@ -48,11 +48,11 @@ func tableTailscaleAclEntry(_ context.Context) *plugin.Table {
 				Description: ".",
 				Type:        proto.ColumnType_STRING,
 			},
-		},
+		}),
 	}
 }
 
-func listTailscaleAclEntry(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTailscaleACLEntries(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	// retrieves the ACL that is currently set for the given tailnet.
 	getTailscaleAclCached := plugin.HydrateFunc(getTailscaleAcl).WithCache()

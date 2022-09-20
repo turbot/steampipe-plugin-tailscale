@@ -15,9 +15,9 @@ func tablelistTailscaleAclSsh(_ context.Context) *plugin.Table {
 		Name:        "tailscale_acl_ssh",
 		Description: "Tailscale Acl Ssh.",
 		List: &plugin.ListConfig{
-			Hydrate: listTailscaleAclSsh,
+			Hydrate: listTailscaleAclSSH,
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "action",
 				Description: ".",
@@ -43,11 +43,11 @@ func tablelistTailscaleAclSsh(_ context.Context) *plugin.Table {
 				Description: ".",
 				Type:        proto.ColumnType_TIMESTAMP,
 			},
-		},
+		}),
 	}
 }
 
-func listTailscaleAclSsh(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTailscaleAclSSH(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	// retrieves the ACL that is currently set for the given tailnet.
 	getTailscaleAclCached := plugin.HydrateFunc(getTailscaleAcl).WithCache()
@@ -57,7 +57,7 @@ func listTailscaleAclSsh(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	}
 	acl := data.(*tailscale.ACL)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSsh", "connection_error", err)
+		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSSH", "connection_error", err)
 		return nil, err
 	}
 

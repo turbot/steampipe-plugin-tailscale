@@ -17,7 +17,7 @@ func tableTailscaleAclAutoApprover(_ context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleAclAutoApprovers,
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "routes",
 				Description: ".",
@@ -28,7 +28,7 @@ func tableTailscaleAclAutoApprover(_ context.Context) *plugin.Table {
 				Description: ".",
 				Type:        proto.ColumnType_JSON,
 			},
-		},
+		}),
 	}
 }
 
