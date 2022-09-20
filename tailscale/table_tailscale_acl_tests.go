@@ -10,44 +10,44 @@ import (
 
 //// TABLE DEFINITION
 
-func tableTailscaleAclSSH(_ context.Context) *plugin.Table {
+func tableTailscaleAclTest(_ context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "tailscale_acl_ssh",
-		Description: "Tailscale Acl SSH.",
+		Name:        "tailscale_acl_test",
+		Description: "Tailscale ACL Test.",
 		List: &plugin.ListConfig{
-			Hydrate: listTailscaleAclSSH,
+			Hydrate: listTailscaleACLTests,
 		},
 		Columns: defaultColumns([]*plugin.Column{
 			{
-				Name:        "action",
+				Name:        "source",
 				Description: ".",
 				Type:        proto.ColumnType_STRING,
 			},
 			{
-				Name:        "users",
+				Name:        "user",
+				Description: ".",
+				Type:        proto.ColumnType_STRING,
+			},
+			{
+				Name:        "accept",
 				Description: ".",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
-				Name:        "source",
+				Name:        "allow",
 				Description: ".",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
-				Name:        "destination",
+				Name:        "deny",
 				Description: ".",
 				Type:        proto.ColumnType_JSON,
-			},
-			{
-				Name:        "check_period",
-				Description: ".",
-				Type:        proto.ColumnType_TIMESTAMP,
 			},
 		}),
 	}
 }
 
-func listTailscaleAclSSH(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTailscaleACLTests(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	// retrieves the ACL that is currently set for the given tailnet.
 	getTailscaleAclCached := plugin.HydrateFunc(getTailscaleAcl).WithCache()
@@ -57,11 +57,11 @@ func listTailscaleAclSSH(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	}
 	acl := data.(*tailscale.ACL)
 	if err != nil {
-		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleAclSSH", "connection_error", err)
+		plugin.Logger(ctx).Error("tailscale_acl.listTailscaleACLTests", "connection_error", err)
 		return nil, err
 	}
 
-	for _, element := range acl.SSH {
+	for _, element := range acl.Tests {
 		d.StreamListItem(ctx, element)
 	}
 	return nil, nil
