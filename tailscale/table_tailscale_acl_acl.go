@@ -10,10 +10,10 @@ import (
 
 //// TABLE DEFINITION
 
-func tableTailscaleAclEntry(_ context.Context) *plugin.Table {
+func tableTailscaleAclAcl(_ context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "tailscale_acl_entry",
-		Description: "Tailscale ACL Entry.",
+		Name:        "tailscale_acl_acl",
+		Description: "Tailscale ACL acl.",
 		List: &plugin.ListConfig{
 			Hydrate: listTailscaleACLEntries,
 		},
