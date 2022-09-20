@@ -104,4 +104,4 @@ Please see the [contribution guidelines](https://github.com/turbot/steampipe/blo
 `help wanted` issues:
 
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
-- [PlanetScale Plugin](https://github.com/turbot/steampipe-plugin-tailscale/labels/help%20wanted)
+- [Tailscale Plugin](https://github.com/turbot/steampipe-plugin-tailscale/labels/help%20wanted)
