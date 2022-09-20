@@ -30,7 +30,7 @@ select
 from
   tailscale_tailnet_key
 where
-  id ='kFXfcN2CNTRL'
+  id ='kFXfcN2CMDR'
   and expires <= (now() + interval '90' day);
 ```
 
@@ -45,7 +45,7 @@ select
 from
   tailscale_tailnet_key
 where
-  id ='kFXfcN2CNTRL'
+  id ='kFXfcN2CMDR'
   and expires <= now();
 ```
 
@@ -60,7 +60,7 @@ select
 from
   tailscale_tailnet_key
 where 
-  id ='kFXfcN2CNTRL'
+  id ='kFXfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'preauthorized')::boolean;
 ```
 
@@ -75,6 +75,6 @@ select
 from
   tailscale_tailnet_key
 where 
-  id ='kFXfcN2CNTRL'
+  id ='kFXfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'reusable')::boolean;
 ```
