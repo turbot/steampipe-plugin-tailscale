@@ -15,6 +15,7 @@ func commonColumns() []*plugin.Column {
 			Name:        "tailnet_name",
 			Description: "The name of your tailnet.",
 			Type:        proto.ColumnType_STRING,
+			Hydrate:     getTailscaleTailnet,
 			Transform:   transform.FromValue(),
 		},
 	}
@@ -26,7 +27,7 @@ func defaultColumns(columns []*plugin.Column) []*plugin.Column {
 
 func getTailscaleTailnet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	config := GetConfig(d.Connection)
-	if d.KeyColumnQualString("tailnet_name") != "" &&  d.KeyColumnQualString("tailnet_name") != *config.TailnetName {
+	if d.KeyColumnQualString("tailnet_name") != "" && d.KeyColumnQualString("tailnet_name") != *config.TailnetName {
 		return nil, nil
 	}
 
