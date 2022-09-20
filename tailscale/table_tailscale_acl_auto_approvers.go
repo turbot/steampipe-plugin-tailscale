@@ -24,7 +24,7 @@ func tableTailscaleAclAutoApprover(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 			{
-				Name:        "exit_nodes",
+				Name:        "exit_node",
 				Description: "Device routing the traffic for a given tailnet.",
 				Type:        proto.ColumnType_JSON,
 			},
