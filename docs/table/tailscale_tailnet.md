@@ -44,22 +44,22 @@ from
 
 ```sql
 select 
-    v as user_name,
-    g.key as group_name
-  from
-    tailscale_tailnet,
-    jsonb_each(acl_groups) as g,
-    jsonb_array_elements_text(g.value) as v
+   v as user_name,
+   g.key as group_name
+from
+  tailscale_tailnet,
+  jsonb_each(acl_groups) as g,
+  jsonb_array_elements_text(g.value) as v
 ```
 
 ### List owners for each tag
 
 ```sql
 select 
-    v as owner,
-    g.key as tag
-  from
-    tailscale_tailnet,
-    jsonb_each(acl_tag_owners) as g,
-    jsonb_array_elements_text(g.value) as v
+   v as owner,
+   g.key as tag
+from
+  tailscale_tailnet,
+  jsonb_each(acl_tag_owners) as g,
+  jsonb_array_elements_text(g.value) as v
 ```
