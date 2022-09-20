@@ -15,7 +15,7 @@ from
   tailscale_tailnet;
 ```
 
-## Display those nameservers that have magicDNS enabled
+### Display nameservers having magicDNS enabled
 
 ```sql
 select
@@ -30,7 +30,7 @@ where
   dns_preferences->> 'magicDNS' = 'true';
 ```
 
-## Display the different DNS searchpaths prsent in the nameservers
+### Display different DNS searchpaths present in the nameservers
 
 ```sql
 select
