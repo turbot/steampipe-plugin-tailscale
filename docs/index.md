@@ -16,16 +16,16 @@ og_image: "/images/plugins/turbot/tailscale-social-graphic.png"
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
-List devices which block incoming connections in your Tailscale account:
+List devices which block incoming connections in your Tailscale tailnet:
 
 ```sql
 select
   name,
-  user,
+  device.user,
   created,
   tailnet_name
 from
-  tailscale_device
+  tailscale_device as device
 where
   blocks_incoming_connections;
 ```
