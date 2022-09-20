@@ -72,20 +72,17 @@ from
   ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
-### Display the devices of users that have check period enabled
+### Display the users that have check period disabled
 
 ```sql
 select
   tas.action,
   tas.users,
-  tas.source,
-  tas.destination,
-  tas.check_period,
-  tas.tailnet_name
+  tas.check_period
 from
   tailscale_acl_ssh as tas
 join
   tailscale_tailnet as tt
 on
-  action = 'check' and check_period is null and tas.tailnet_name = tt.tailnet_name;
+  action = 'accept' and check_period is null and tas.tailnet_name = tt.tailnet_name;
 ```
