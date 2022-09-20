@@ -24,7 +24,6 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"tailscale_acl_derp_map":      tableTailscaleAclDERPMap(ctx),
 			"tailscale_acl_entry":         tableTailscaleAclEntry(ctx),
 			"tailscale_acl_ssh":           tableTailscaleAclSSH(ctx),
-			"tailscale_acl_test":          tableTailscaleAclTest(ctx),
 			"tailscale_device":            tableTailscaleDevice(ctx),
 			"tailscale_tailnet":           tableTailscaleTailnet(ctx),
 		},
