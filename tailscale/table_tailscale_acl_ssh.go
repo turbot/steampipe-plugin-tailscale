@@ -20,27 +20,27 @@ func tableTailscaleAclSSH(_ context.Context) *plugin.Table {
 		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "action",
-				Description: ".",
+				Description: "Action defined for a device or a network.",
 				Type:        proto.ColumnType_STRING,
 			},
 			{
 				Name:        "users",
-				Description: ".",
+				Description: "The list of users to apply an action on.",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
 				Name:        "source",
-				Description: ".",
+				Description: "The list of source IP addresses for the connection.",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
 				Name:        "destination",
-				Description: ".",
+				Description: "The list of destination IP addresses for the connection.",
 				Type:        proto.ColumnType_JSON,
 			},
 			{
 				Name:        "check_period",
-				Description: ".",
+				Description: "The time period for which the connection remains in check mode.",
 				Type:        proto.ColumnType_TIMESTAMP,
 			},
 		}),
