@@ -1,6 +1,6 @@
 # Table: tailscale_acl_ssh
 
-
+Tailscale SSH changes how authentication of your connections, key generation and distribution, and user revocation work.
 
 ## Examples
 
@@ -16,22 +16,6 @@ select
   tailnet_name
 from
   tailscale_acl_ssh;
-```
-
-### display the devices of users that require checks on it
-
-```sql
-select
-  action,
-  users,
-  source,
-  destination,
-  check_period,
-  tailnet_name
-from
-  tailscale_acl_ssh
-where
-  action = 'check';
 ```
 
 ### Display the SSH where users connect to their own devices
@@ -68,16 +52,16 @@ where
 
 ```sql
 select
-  action,
-  users,
-  source,
-  destination,
-  check_period,
-  tailnet_name
+  tas.action,
+  tas.users,
+  tas.source,
+  tas.destination,
+  tas.check_period,
+  tas.tailnet_name
 from
   tailscale_acl_ssh as tas
-natural join
+join
   tailscale_tailnet as tt
-where
-  action = 'check' and check_period != null and tas.tailnet_name = tt.tailnet_name;
+on
+  action = 'check' and check_period is null and tas.tailnet_name = tt.tailnet_name;
 ```
