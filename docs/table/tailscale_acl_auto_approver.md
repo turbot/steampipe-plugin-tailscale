@@ -24,5 +24,6 @@ from
   tailscale_acl_auto_approver,
   jsonb_each(routes) as r,
   jsonb_array_elements_text(r.value) as v
-where r.key = '0.0.0.0/0';
+where 
+  r.key = '0.0.0.0/0';
 ```
