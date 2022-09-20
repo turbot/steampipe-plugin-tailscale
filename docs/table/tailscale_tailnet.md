@@ -15,11 +15,7 @@ from
   tailscale_tailnet;
 ```
 
-<<<<<<< HEAD
-### Display nameservers having magicDNS enabled
-=======
 ### Display nameservers that have magicDNS enabled
->>>>>>> main
 
 ```sql
 select

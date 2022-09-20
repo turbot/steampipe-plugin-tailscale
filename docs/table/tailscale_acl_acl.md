@@ -61,8 +61,4 @@ with user_groups as (
   from
     devices d
     join user_perm u on u.destinations like '%'||d.tag||'%';
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> main
