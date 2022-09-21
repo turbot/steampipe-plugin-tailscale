@@ -20,7 +20,7 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 
 	// Default to using env vars (#2)
 	apiKey := os.Getenv("TAILSCALE_API_KEY")
-	tailnetName := os.Getenv("TAILSCALE_TAILNET_NAME")
+	tailnetName := os.Getenv("TAILSCALE_TAILNET")
 
 	// But prefer the config (#1)
 	tailscaleConfig := GetConfig(d.Connection)

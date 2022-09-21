@@ -75,7 +75,7 @@ connection "tailscale" {
 
 Environment variables are also available as an alternate configuration method:
 * `TAILSCALE_API_KEY`
-* `TAILSCALE_TAILNET_NAME`
+* `TAILSCALE_TAILNET`
 
 ## Get involved
 
