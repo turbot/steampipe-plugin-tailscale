@@ -40,14 +40,26 @@ from
   tailscale_tailnet;
 ```
 
-### List users in each groups
+### List users in each group
 
 ```sql
-select 
-    v as user_name,
-    g.key as group_name
-  from
-    tailscale_tailnet,
-    jsonb_each(acl_groups) as g,
-    jsonb_array_elements_text(g.value) as v
+select
+  v as user_name,
+  g.key as group_name
+from
+  tailscale_tailnet,
+  jsonb_each(acl_groups) as g,
+  jsonb_array_elements_text(g.value) as v;
+```
+
+### List owners for each tag
+
+```sql
+select
+  v as owner,
+  g.key as tag
+from
+  tailscale_tailnet,
+  jsonb_each(acl_tag_owners) as g,
+  jsonb_array_elements_text(g.value) as v;
 ```

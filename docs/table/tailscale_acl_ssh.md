@@ -23,11 +23,11 @@ from
 ```sql
 with ssh_tas as (
   select
-  action,
-  users,
-  src,
-  dst,
-  tailnet_name
+    action,
+    users,
+    src,
+    dst,
+    tailnet_name
 from
   tailscale_acl_ssh as tas,
   jsonb_array_elements_text(source) as src,
@@ -50,26 +50,25 @@ from
 ```sql
 with ssh_tas as (
   select
-  action,
-  users,
-  src,
-  dst,
-  tailnet_name
-from
-  tailscale_acl_ssh as tas,
-  jsonb_array_elements_text(source) as src,
-  jsonb_array_elements_text(destination) as dst
-where
-   src = 'autogroup:members'
+    action,
+    users,
+    src,
+    dst,
+    tailnet_name
+  from
+    tailscale_acl_ssh as tas,
+    jsonb_array_elements_text(source) as src,
+    jsonb_array_elements_text(destination) as dst
+  where
+    src = 'autogroup:members'
 )
 select
   td.name as device_name,
   td.user,
   td.id
 from
-  tailscale_device as td join
-  ssh_tas on
-  ssh_tas.tailnet_name = td.tailnet_name;
+  tailscale_device as td
+  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
 ### Display the users that have check period disabled
@@ -81,8 +80,6 @@ select
   tas.check_period
 from
   tailscale_acl_ssh as tas
-join
-  tailscale_tailnet as tt
-on
+  join tailscale_tailnet as tt on
   action = 'accept' and check_period is null and tas.tailnet_name = tt.tailnet_name;
 ```

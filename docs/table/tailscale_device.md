@@ -25,7 +25,7 @@ select
   os,
   count(*)
 from
-  tailscale.tailscale_device d
+  tailscale_device
 group by
   os
 order by

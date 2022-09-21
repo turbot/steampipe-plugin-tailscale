@@ -17,8 +17,8 @@ select
   capabilities ->> 'devices' as device_capabilities
 from
   tailscale_tailnet_key
-where 
-  id ='kFXfcN2CMDR';
+where
+  id ='wPOfcN2CMDR';
 ```
 
 ### List keys that are expiring in next 90 days
@@ -32,7 +32,7 @@ select
 from
   tailscale_tailnet_key
 where
-  id ='kFXfcN2CMDR'
+  id ='wPOfcN2CMDR'
   and expires <= (now() + interval '90' day);
 ```
 
@@ -47,7 +47,7 @@ select
 from
   tailscale_tailnet_key
 where
-  id ='kFXfcN2CMDR'
+  id ='wPOfcN2CMDR'
   and expires <= now();
 ```
 
@@ -61,8 +61,8 @@ select
   expires
 from
   tailscale_tailnet_key
-where 
-  id ='kFXfcN2CMDR'
+where
+  id ='wPOfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'preauthorized')::boolean;
 ```
 
@@ -76,7 +76,7 @@ select
   expires
 from
   tailscale_tailnet_key
-where 
-  id ='kFXfcN2CMDR'
+where
+  id ='wPOfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'reusable')::boolean;
 ```

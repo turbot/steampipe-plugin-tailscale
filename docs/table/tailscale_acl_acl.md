@@ -62,3 +62,58 @@ with user_groups as (
     devices d
     join user_perm u on u.destinations like '%'||d.tag||'%';
 ```
+
+### Get the devices that can be accessed using each device
+
+```sql
+with src_dest as (
+  select
+    action,
+    sources,
+    destinations
+  from
+    tailscale_acl_acl,
+    jsonb_array_elements_text(source) as sources,
+    jsonb_array_elements_text(destination) as destinations
+  where
+    sources like 'tag:%'
+), devices as (
+  select
+    id,
+    tag
+  from
+    tailscale_device as d,
+    jsonb_array_elements_text(tags) as tag
+), all_devices as (
+  select
+    td.name as device_name, 
+    tag,
+    td.addresses ->> 0 as ipv4,
+    td.addresses ->> 1 as ipv6,
+    td.id,
+    td.hostname as device_hostname
+  from
+    devices as d
+    right join tailscale_device as td on d.id = td.id
+), source_devices as (
+  select
+    action,
+    device_name as sources,
+    destinations
+  from
+    src_dest as sd
+    join all_devices as d on d.tag = sd.sources
+  group by
+    action,
+    device_name,
+    destinations
+)
+select
+  sources as source_device,
+  ad.device_name as destination_device
+from
+  source_devices sd
+  join all_devices ad
+    on sd.destinations like '%' || ad.tag || '%'
+      or sd.destinations like '%' || ad.ipv4 || '%';
+```
