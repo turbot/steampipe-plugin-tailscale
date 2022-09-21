@@ -1,4 +1,4 @@
-# Table: tailscale_acl_acl
+# Table: tailscale_acl_entry
 
 The ACLs for the tailnet represent a list of access rules for your network.
 
@@ -12,7 +12,7 @@ select
   source,
   destination
 from
-  tailscale_acl_acl;
+  tailscale_acl_entry;
 ```
 
 ### Get the list of devices that the user has access to
@@ -32,7 +32,7 @@ with user_groups as (
     sources,
     destinations
   from
-    tailscale_acl_acl,
+    tailscale_acl_entry,
     jsonb_array_elements_text(source) as sources,
     jsonb_array_elements_text(destination) as destinations
   where
@@ -72,7 +72,7 @@ with src_dest as (
     sources,
     destinations
   from
-    tailscale_acl_acl,
+    tailscale_acl_entry,
     jsonb_array_elements_text(source) as sources,
     jsonb_array_elements_text(destination) as destinations
   where
