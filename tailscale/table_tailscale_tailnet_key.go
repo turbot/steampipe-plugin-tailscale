@@ -37,7 +37,7 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 			},
 			{
 				Name:        "created",
-				Description: "Whether the device blocks incoming connections.",
+				Description: "Device creation time.",
 				Type:        proto.ColumnType_TIMESTAMP,
 			},
 			{

@@ -1,6 +1,6 @@
 # Table: tailscale_acl_auto_approver
 
-A Tailscale ACL auto approver defines the list of users who can perform certain actions without requiring further approval from the admin console.
+A Tailscale ACL auto approver defines the list of users who can perform certain actions without requiring an approval from the admin console.
 
 ## Examples
 
@@ -15,7 +15,7 @@ from
   tailscale_acl_auto_approver;
 ```
 
-### List tags/groups allowed for each route
+### Users allowed for each route
 
 ``` sql
 select
@@ -27,7 +27,7 @@ from
   jsonb_array_elements_text(r.value) as v;
 ```
 
-### List the exit nodes
+### Exit node tags for each device
 
 ```sql
 with tag_devices as(
@@ -40,10 +40,10 @@ with tag_devices as(
     tailscale_device as d,
     jsonb_array_elements_text(tags) as tag
 )
-select
-  en as exit_node_tag,
-  id as device_id,
+select  
   device_name,
+  id as device_id,
+  en as exit_node_tag,
   device_hostname
 from
   tailscale_acl_auto_approver,
