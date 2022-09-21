@@ -27,7 +27,7 @@ from
   jsonb_array_elements_text(r.value) as v;
 ```
 
-### Exit node tags for each device
+### Exit node tags of each device
 
 ```sql
 with tag_devices as(
