@@ -17,7 +17,7 @@ select
   capabilities ->> 'devices' as device_capabilities
 from
   tailscale_tailnet_key
-where 
+where
   id ='wPOfcN2CMDR';
 ```
 
@@ -61,7 +61,7 @@ select
   expires
 from
   tailscale_tailnet_key
-where 
+where
   id ='wPOfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'preauthorized')::boolean;
 ```
@@ -76,7 +76,7 @@ select
   expires
 from
   tailscale_tailnet_key
-where 
+where
   id ='wPOfcN2CMDR'
   and (capabilities -> 'devices' -> 'create' ->> 'reusable')::boolean;
 ```

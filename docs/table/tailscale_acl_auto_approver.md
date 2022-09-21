@@ -18,7 +18,7 @@ from
 ### List tags/groups allowed for each route
 
 ``` sql
-select 
+select
   r.key as route,
   v as user
 from
@@ -33,7 +33,7 @@ from
 with tag_devices as(
   select
     id,
-    d.name as device_name, 
+    d.name as device_name,
     d.hostname as device_hostname,
     tag
   from
@@ -43,11 +43,10 @@ with tag_devices as(
 select
   en as exit_node_tag,
   id as device_id,
-  device_name, 
+  device_name,
   device_hostname
 from
   tailscale_acl_auto_approver,
   jsonb_array_elements_text(exit_node) as en
-  join tag_devices as td
-    on en = td.tag
+  join tag_devices as td on en = td.tag;
 ```
