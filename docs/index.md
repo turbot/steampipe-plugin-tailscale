@@ -61,11 +61,11 @@ Installing the latest tailscale plugin will create a config file (`~/.steampipe/
 
 ```hcl
 connection "tailscale" {
-  plugin       = "tailscale"
+  plugin = "tailscale"
 
   # Required: Set your API Key and Tailnet name
-  # Generate your API Key as per: https://tailscale.com/kb/1101/api/
-  api_key = "abcde-krSvfN1CNTRL-M67st8X5o1234567"
+  # Generate your API Key per: https://tailscale.com/kb/1101/api/
+  api_key      = "abcde-krSvfN1CNTRL-M67st8X5o1234567"
   tailnet_name = "example.com"
 }
 ```
