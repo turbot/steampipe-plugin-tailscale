@@ -109,7 +109,7 @@ where
   is_external;
 ```
 
-### Devices that have been inactive since the last 90 days
+### Devices that have been inactive for the last 90 days
 
 ```sql
 select
@@ -143,7 +143,7 @@ where
   expires <= (now() + interval '90' day);
 ```
 
-### Devices running on older Tailscale client version
+### Devices running on older Tailscale client versions
 
 ```sql
 select
