@@ -32,7 +32,7 @@ order by
   count desc;
 ```
 
-### List user's devices
+### Device details of a particular user
 
 ```sql
 select
@@ -42,14 +42,14 @@ select
   expires,
   hostname
 from
-  tailscale.tailscale_device d
+  tailscale_device d
 where
   d.user = 'luis@turbot.com'
 order by
   d.name;
 ```
 
-### List not authorized devices
+### Unauthorized devices
 
 ```sql
 select
@@ -64,21 +64,20 @@ where
   d.authorized = false;
 ```
 
-### List instances without tags
+### Devices without tags
 
 ```sql
 select
+  name,
   id,
-  created,
-  expires,
   hostname
 from
-  tailscale.tailscale_device
+  tailscale_device
 where
   tags is null;
 ```
 
-### List devices that block incoming connections
+### Devices that block incoming connections
 
 ```sql
 select
@@ -94,7 +93,7 @@ where
   blocks_incoming_connections;
 ```
 
-### List all the external devices
+### External devices
 
 ```sql
 select
@@ -110,7 +109,7 @@ where
   is_external;
 ```
 
-### List devices that are inactive since last 90 days
+### Devices that have been inactive for the last 90 days
 
 ```sql
 select
@@ -127,7 +126,7 @@ where
   last_seen <= (now() - interval '90' day);
 ```
 
-### List devices that are expiring in next 90 days
+### Devices that will expire in the next 90 days
 
 ```sql
 select
@@ -144,7 +143,7 @@ where
   expires <= (now() + interval '90' day);
 ```
 
-### List devices that need update
+### Devices running on older Tailscale client versions
 
 ```sql
 select

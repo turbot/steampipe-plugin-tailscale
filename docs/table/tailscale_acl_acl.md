@@ -15,11 +15,11 @@ from
   tailscale_acl_acl;
 ```
 
-### Get the list of devices that the user has access to
+### Devices that the user has access to
 
 ```sql
 with user_groups as (
-  select 
+  select
     g.key as groups,
     v as users
   from
@@ -63,7 +63,7 @@ with user_groups as (
     join user_perm u on u.destinations like '%'||d.tag||'%';
 ```
 
-### Get the devices that can be accessed using each device
+### Devices that can be accessed using other devices in the network
 
 ```sql
 with src_dest as (

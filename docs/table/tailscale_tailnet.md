@@ -1,8 +1,10 @@
 # Table: tailscale_tailnet
 
-A tailscale tailnet is a source to destination connection between any two nodes in a tailscale.
+Tailscale tailnet is a source to destination connection between any two nodes in a tailscale.
 
-## Basic info
+## Examples
+
+### Basic info
 
 ```sql
 select
@@ -15,7 +17,7 @@ from
   tailscale_tailnet;
 ```
 
-### Display nameservers that have magicDNS enabled
+### DNS Nameservers that have magicDNS enabled
 
 ```sql
 select
@@ -30,16 +32,6 @@ where
   dns_preferences->> 'magicDNS' = 'true';
 ```
 
-### Display different DNS searchpaths present in the nameservers
-
-```sql
-select
-  dns_nameservers,
-  dns_search_paths
-from
-  tailscale_tailnet;
-```
-
 ### List users in each group
 
 ```sql
@@ -52,7 +44,7 @@ from
   jsonb_array_elements_text(g.value) as v;
 ```
 
-### List owners for each tag
+### List owners of each tag
 
 ```sql
 select

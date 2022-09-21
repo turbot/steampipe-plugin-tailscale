@@ -1,6 +1,6 @@
 # Table: tailscale_tailnet_key
 
-Tailscale key gives access to the Tailscale API.
+Tailscale key gives access to Tailscale APIs.
 
 The `tailscale_tailnet_key` table can be used to query information about any key, and **you must specify the id** in the where or join clause using the `id` column.
 
@@ -21,14 +21,13 @@ where
   id ='wPOfcN2CMDR';
 ```
 
-### List keys that are expiring in next 90 days
+### Keys that will expire in the next 90 days
 
 ```sql
 select
   id,
   key,
-  created,
-  expires
+  expires::date - now()::date as expiry_days_left
 from
   tailscale_tailnet_key
 where
@@ -36,7 +35,7 @@ where
   and expires <= (now() + interval '90' day);
 ```
 
-### List expired keys
+### Keys that have expired
 
 ```sql
 select
