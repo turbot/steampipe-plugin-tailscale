@@ -3,7 +3,7 @@
 _What's new?_
 
 - New tables added
-  - [tailscale_acl_acl](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_acl)
+  - [tailscale_acl_entry](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_entry)
   - [tailscale_acl_auto_approvers](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_auto_approvers)
   - [tailscale_acl_derp_map](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_derp_map)
   - [tailscale_acl_ssh](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_ssh)
