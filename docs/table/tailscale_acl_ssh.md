@@ -18,7 +18,7 @@ from
   tailscale_acl_ssh;
 ```
 
-### Display the users who cannot connect to their own devices
+### Users who cannot connect to their own devices
 
 ```sql
 with ssh_tas as (
@@ -45,7 +45,7 @@ from
   ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
-### Display the devices of users who are a direct member (not a shared user) of the tailnet
+### Users who are a direct member (not a shared user) of the tailnet
 
 ```sql
 with ssh_tas as (
@@ -63,23 +63,20 @@ with ssh_tas as (
     src = 'autogroup:members'
 )
 select
-  td.name as device_name,
   td.user,
+  td.name as device_name,
   td.id
 from
-  tailscale_device as td
-  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
+  tailscale_device as td join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
-### Display the users that have check period disabled
+### Users who have the check period disabled
 
 ```sql
 select
-  tas.action,
   tas.users,
-  tas.check_period
+  tas.action
 from
   tailscale_acl_ssh as tas
-  join tailscale_tailnet as tt on
-  action = 'accept' and check_period is null and tas.tailnet_name = tt.tailnet_name;
+  join tailscale_tailnet as tt on tas.tailnet_name = tt.tailnet_name and action = 'accept' and check_period is null;
 ```
