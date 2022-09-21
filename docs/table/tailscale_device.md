@@ -32,11 +32,15 @@ order by
   count desc;
 ```
 
-### User's devices
+### List user's devices
 
 ```sql
 select
-  *
+  name,
+  id,
+  created,
+  expires,
+  hostname
 from
   tailscale.tailscale_device d
 where
@@ -49,25 +53,32 @@ order by
 
 ```sql
 select
-  *
+  name,
+  id,
+  created,
+  expires,
+  hostname
 from
   tailscale.tailscale_device d
 where
   d.authorized = false;
 ```
 
-### Find instances without tags
+### List instances without tags
 
 ```sql
 select
-  *
+  id,
+  created,
+  expires,
+  hostname
 from
   tailscale.tailscale_device
 where
   tags is null;
 ```
 
-### Get devices that block incoming connections
+### List devices that block incoming connections
 
 ```sql
 select
@@ -113,7 +124,7 @@ select
 from
   tailscale_device
 where
-  last_seen <= (now() - interval '90' day)
+  last_seen <= (now() - interval '90' day);
 ```
 
 ### List devices that are expiring in next 90 days
@@ -130,7 +141,7 @@ select
 from
   tailscale_device
 where
-  expires <= (now() + interval '90' day)
+  expires <= (now() + interval '90' day);
 ```
 
 ### List devices that need update
