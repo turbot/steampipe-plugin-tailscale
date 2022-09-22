@@ -2,6 +2,7 @@ package tailscale
 
 import (
 	"context"
+	"strings"
 
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 )
@@ -18,4 +19,8 @@ func getTailscaleAcl(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 		return nil, err
 	}
 	return acl, nil
+}
+
+func isNotFoundError(err error) bool {
+	return strings.Contains(err.Error(), "404")
 }

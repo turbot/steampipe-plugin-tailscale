@@ -14,7 +14,9 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 	p := &plugin.Plugin{
 		Name:             pluginName,
 		DefaultTransform: transform.FromCamel().Transform(transform.NullIfZeroValue),
-		DefaultGetConfig: &plugin.GetConfig{},
+		DefaultGetConfig: &plugin.GetConfig{
+			ShouldIgnoreError: isNotFoundError,
+		},
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
 			Schema:      ConfigSchema,
