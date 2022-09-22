@@ -1,10 +1,10 @@
-## v0.0.1 [TBD]
+## v0.0.1 [2022-09-22]
 
 _What's new?_
 
 - New tables added
-  - [tailscale_acl_entry](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_entry)
   - [tailscale_acl_auto_approvers](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_auto_approvers)
+  - [tailscale_acl_entry](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_entry)
   - [tailscale_acl_derp_map](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_derp_map)
   - [tailscale_acl_ssh](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_acl_ssh)
   - [tailscale_device](https://hub.steampipe.io/plugins/turbot/tailscale/tables/tailscale_device)
