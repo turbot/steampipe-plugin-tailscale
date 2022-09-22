@@ -3,7 +3,7 @@ organization: Turbot
 category: ["saas"]
 icon_url: "/images/plugins/turbot/tailscale.svg"
 brand_color: "#000000"
-display_name: "tailscale"
+display_name: "Tailscale"
 short_name: "tailscale"
 description: "Steampipe plugin to query VPN networks, devices and more from tailscale."
 og_description: "Query Tailscale with SQL! Open source CLI. No DB required."
