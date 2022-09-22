@@ -1,3 +1,9 @@
+## v0.0.3 [2022-09-22]
+
+_Bug fixes_
+
+- Fixed the incorrect plugin display name. ([#28](https://github.com/turbot/steampipe-plugin-tailscale/pull/28)) 
+
 ## v0.0.2 [2022-09-22]
 
 _Bug fixes_
