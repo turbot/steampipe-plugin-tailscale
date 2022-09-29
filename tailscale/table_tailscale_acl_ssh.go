@@ -41,7 +41,7 @@ func tableTailscaleAclSSH(_ context.Context) *plugin.Table {
 			{
 				Name:        "check_period",
 				Description: "The time period for which the connection remains in check mode.",
-				Type:        proto.ColumnType_TIMESTAMP,
+				Type:        proto.ColumnType_STRING,
 			},
 		}),
 	}
