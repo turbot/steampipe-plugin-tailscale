@@ -23,7 +23,7 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 				},
 			},
 		},
-		Columns: []*plugin.Column{
+		Columns: defaultColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "An unique identifier of the tailnet key.",
@@ -59,7 +59,7 @@ func tableTailscaleTailnetKey(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Key"),
 			},
-		},
+		}),
 	}
 }
 
