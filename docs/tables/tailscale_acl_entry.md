@@ -86,7 +86,7 @@ with src_dest as (
     jsonb_array_elements_text(tags) as tag
 ), all_devices as (
   select
-    td.name as device_name, 
+    td.name as device_name,
     tag,
     td.addresses ->> 0 as ipv4,
     td.addresses ->> 1 as ipv6,
