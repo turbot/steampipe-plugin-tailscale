@@ -113,7 +113,6 @@ select
   ad.device_name as destination_device
 from
   source_devices sd
-  join all_devices ad
-    on sd.destinations like '%' || ad.tag || '%'
-      or sd.destinations like '%' || ad.ipv4 || '%';
+  join all_devices ad on sd.destinations like '%' || ad.tag || '%'
+  or sd.destinations like '%' || ad.ipv4 || '%';
 ```
