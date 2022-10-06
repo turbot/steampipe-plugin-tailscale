@@ -1,3 +1,13 @@
+## v0.1.0 [2022-10-06]
+
+_Enhancements_
+
+- Added column `tailnet_name` to `tailscale_tailnet_key` table. ([#34](https://github.com/turbot/steampipe-plugin-tailscale/pull/34))
+
+_Bug fixes_
+
+- Fixed the `check_period` column of `tailscale_acl_ssh` table to be of the `string` data type instead of `timestamp`. ([#33](https://github.com/turbot/steampipe-plugin-tailscale/pull/33))
+
 ## v0.0.4 [2022-09-26]
 
 _Bug fixes_
