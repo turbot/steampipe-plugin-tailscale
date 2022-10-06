@@ -6,7 +6,7 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed the `check_period` column of `tailscale_acl_ssh` table to be of the `string` data type instead of `timestamp`. ([#33](https://github.com/turbot/steampipe-plugin-tailscale/pull/33))
+- Fixed the `check_period` column of `tailscale_acl_ssh` table to be of `string` data type instead of `timestamp`. ([#33](https://github.com/turbot/steampipe-plugin-tailscale/pull/33))
 
 ## v0.0.4 [2022-09-26]
 
