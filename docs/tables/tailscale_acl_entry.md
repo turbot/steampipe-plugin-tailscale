@@ -86,7 +86,7 @@ with src_dest as (
     jsonb_array_elements_text(tags) as tag
 ), all_devices as (
   select
-    td.name as device_name, 
+    td.name as device_name,
     tag,
     td.addresses ->> 0 as ipv4,
     td.addresses ->> 1 as ipv6,
@@ -113,7 +113,6 @@ select
   ad.device_name as destination_device
 from
   source_devices sd
-  join all_devices ad
-    on sd.destinations like '%' || ad.tag || '%'
-      or sd.destinations like '%' || ad.ipv4 || '%';
+  join all_devices ad on sd.destinations like '%' || ad.tag || '%'
+  or sd.destinations like '%' || ad.ipv4 || '%';
 ```

@@ -33,16 +33,17 @@ with ssh_tas as (
     jsonb_array_elements_text(source) as src,
     jsonb_array_elements_text(destination) as dst
   where
-    action <> 'check' or
-    src <> 'autogroup:members' or
-    dst <> 'autogroup:self'
+    action <> 'check'
+    or src <> 'autogroup:members'
+    or dst <> 'autogroup:self'
 )
 select
   distinct(td.name) as device_name,
   td.user,
   td.id
 from
-  tailscale_device as td join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
+  tailscale_device as td
+  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
 ### Users who are a direct member (not a shared user) of the tailnet
@@ -67,7 +68,8 @@ select
   td.name as device_name,
   td.id
 from
-  tailscale_device as td join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
+  tailscale_device as td
+  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
 ### Users who have the check period disabled
@@ -77,5 +79,8 @@ select
   tas.users,
   tas.action
 from
-  tailscale_acl_ssh as tas join tailscale_tailnet as tt on tas.tailnet_name = tt.tailnet_name and action = 'accept' and check_period is null;
+  tailscale_acl_ssh as tas 
+  join tailscale_tailnet as tt on tas.tailnet_name = tt.tailnet_name
+  and action = 'accept'
+  and check_period is null;
 ```
