@@ -27,7 +27,7 @@ func defaultColumns(columns []*plugin.Column) []*plugin.Column {
 
 func getTailscaleTailnet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	config := GetConfig(d.Connection)
-	if d.KeyColumnQualString("tailnet_name") != "" && d.KeyColumnQualString("tailnet_name") != *config.TailnetName {
+	if d.EqualsQualString("tailnet_name") != "" && d.EqualsQualString("tailnet_name") != *config.TailnetName {
 		return nil, nil
 	}
 
