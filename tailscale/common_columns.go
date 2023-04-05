@@ -3,9 +3,9 @@ package tailscale
 import (
 	"context"
 
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 // column definitions for the common columns
@@ -27,7 +27,7 @@ func defaultColumns(columns []*plugin.Column) []*plugin.Column {
 
 func getTailscaleTailnet(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	config := GetConfig(d.Connection)
-	if d.KeyColumnQualString("tailnet_name") != "" && d.KeyColumnQualString("tailnet_name") != *config.TailnetName {
+	if d.EqualsQualString("tailnet_name") != "" && d.EqualsQualString("tailnet_name") != *config.TailnetName {
 		return nil, nil
 	}
 
