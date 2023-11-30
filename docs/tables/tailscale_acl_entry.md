@@ -1,10 +1,20 @@
-# Table: tailscale_acl_entry
+---
+title: "Steampipe Table: tailscale_acl_entry - Query Tailscale ACL Entries using SQL"
+description: "Allows users to query Tailscale ACL Entries, specifically the details of each ACL entry, providing insights into the access control lists configured in Tailscale."
+---
 
-The ACLs for the tailnet represent a list of access rules for your network.
+# Table: tailscale_acl_entry - Query Tailscale ACL Entries using SQL
+
+Tailscale is a zero config VPN for building secure networks. Access Control Lists (ACLs) in Tailscale define the rules that govern the access between devices in a Tailscale network. Each entry in the ACL specifies the permissions for a particular set of devices.
+
+## Table Usage Guide
+
+The `tailscale_acl_entry` table provides insights into ACL entries within Tailscale. As a network administrator, explore entry-specific details through this table, including allowed or denied permissions, source and destination addresses, and associated metadata. Utilize it to uncover information about entries, such as those with broad permissions, the relationships between entries, and the verification of access rules.
 
 ## Examples
 
 ### Basic Info
+Explore the actions taken between different sources and destinations in your network. This can help identify patterns or anomalies in network traffic, enhancing security and efficiency.
 
 ```sql
 select
@@ -16,6 +26,7 @@ from
 ```
 
 ### Devices that the user has access to
+This query is useful for determining which devices a particular user has access to in a network. It helps in managing user permissions by identifying the devices a user can interact with, thereby enhancing network security and control.
 
 ```sql
 with user_groups as (
@@ -64,6 +75,7 @@ with user_groups as (
 ```
 
 ### Devices that can be accessed using other devices in the network
+Determine the areas in which devices in your network can be accessed by other devices. This could be beneficial in identifying potential security vulnerabilities or optimizing device connectivity within your network.
 
 ```sql
 with src_dest as (

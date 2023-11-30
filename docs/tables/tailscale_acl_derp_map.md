@@ -1,12 +1,20 @@
-# Table: tailscale_acl_derp_map
+---
+title: "Steampipe Table: tailscale_acl_derp_map - Query Tailscale ACL Derp Maps using SQL"
+description: "Allows users to query Tailscale Access Control List (ACL) Derp Maps, providing insights into the ACL rules and their network connections."
+---
 
-Tailscale provides a network of so-called DERP (Designated Encrypted Relay for Packets) servers that fill the same role as TURN servers in the ICE standard, except they use HTTPS streams and WireGuard keys instead of the obsolete TURN recommendations.
+# Table: tailscale_acl_derp_map - Query Tailscale ACL Derp Maps using SQL
 
-Tailscale ACL DERP map defines the domains that will use Tailscale DERP servers.
+Tailscale is a secure network connectivity tool that uses WireGuard protocol to create a mesh network of devices. It includes an Access Control List (ACL) feature that helps in managing permissions and secure network connections. The Derp Map in Tailscale represents the network map of all the Tailscale nodes connected over the internet.
+
+## Table Usage Guide
+
+The `tailscale_acl_derp_map` table provides insights into the ACL rules and their network connections in Tailscale. As a Network Administrator, you can use this table to explore details of each Derp Map, including the network nodes and their connections. This can be particularly useful for managing and troubleshooting network issues, ensuring secure and efficient network communications.
 
 ## Examples
 
 ### Basic Info
+Explore which regions have been omitted in the default settings and understand the corresponding tailnet names. This can be useful for managing and optimizing network routing in a Tailscale network.
 
 ```sql
 select

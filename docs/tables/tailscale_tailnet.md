@@ -1,10 +1,20 @@
-# Table: tailscale_tailnet
+---
+title: "Steampipe Table: tailscale_tailnet - Query Tailscale Tailnet using SQL"
+description: "Allows users to query Tailnet resources in Tailscale, specifically delivering information on the networks that devices are connected to."
+---
 
-Tailscale tailnet is a source to destination connection between any two nodes in a tailscale.
+# Table: tailscale_tailnet - Query Tailscale Tailnet using SQL
+
+A Tailnet in Tailscale is a private network that your devices connect to. It is a virtual network, similar to a VPN, that securely connects your devices no matter where they are located. Tailnets are easy to set up and manage, and provide a secure way to access your resources from anywhere.
+
+## Table Usage Guide
+
+The `tailscale_tailnet` table provides insights into Tailnet resources within Tailscale. As a network administrator, you can use this table to get details about your private networks, including which devices are connected to them and their respective locations. This table is particularly useful for managing network access and ensuring secure connections across your devices.
 
 ## Examples
 
 ### Basic info
+Gain insights into the configuration of your Tailscale network by analyzing the DNS settings and preferences. This query allows you to understand the network's structure and manage your system more effectively.
 
 ```sql
 select
@@ -18,6 +28,7 @@ from
 ```
 
 ### DNS Nameservers that have magicDNS enabled
+Discover the segments that have the magicDNS feature enabled within the Tailscale network. This can be useful to understand which parts of your network are utilizing this feature for simplified DNS management.
 
 ```sql
 select
@@ -33,6 +44,7 @@ where
 ```
 
 ### List users in each group
+Determine the areas in which users are grouped together. This can help in understanding user organization and management within your network.
 
 ```sql
 select
@@ -45,6 +57,7 @@ from
 ```
 
 ### List owners of each tag
+Discover the segments that show the relationship between tags and their respective owners. This is beneficial to understand ownership distribution across different tags.
 
 ```sql
 select
