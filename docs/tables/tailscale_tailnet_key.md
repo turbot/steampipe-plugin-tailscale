@@ -11,6 +11,9 @@ Tailscale is a network connectivity suite that enables secure and simplified net
 
 The `tailscale_tailnet_key` table provides comprehensive insights into Tailnet Keys within Tailscale's network connectivity suite. As a network administrator, you can leverage this table to manage and monitor keys, including their capabilities and status. This can be useful for ensuring secure and authenticated access to your Tailnets, as well as for troubleshooting and network optimization tasks.
 
+**Important Notes**
+- You must specify the `id` in the `where` or join clause (`where id=`, `join tailscale_tailnet_key k on k.id=`) to query this table.
+
 ## Examples
 
 ### Basic Info
