@@ -16,7 +16,16 @@ The `tailscale_acl_derp_map` table provides insights into the ACL rules and thei
 ### Basic Info
 Explore which regions have been omitted in the default settings and understand the corresponding tailnet names. This can be useful for managing and optimizing network routing in a Tailscale network.
 
-```sql
+```sql+postgres
+select
+  omit_default_regions,
+  regions,
+  tailnet_name
+from
+  tailscale_acl_derp_map;
+```
+
+```sql+sqlite
 select
   omit_default_regions,
   regions,
@@ -27,7 +36,7 @@ from
 
 ### DERP Server regions that are available for hosts to use
 
-``` sql
+```sql+postgres
 with map_regions as (
   select
     reg.key as key,
@@ -45,4 +54,8 @@ select
 from
   map_regions,
   jsonb_array_elements(region -> 'nodes') as node;
+```
+
+```sql+sqlite
+Error: The corresponding SQLite query is unavailable.
 ```

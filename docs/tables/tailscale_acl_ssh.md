@@ -16,7 +16,19 @@ The `tailscale_acl_ssh` table provides insights into the ACLs related to SSH wit
 ### Basic info
 Explore the actions and associated users within a network to understand the flow of data from its source to its destination. This can help in assessing the network's configuration and identifying any unusual patterns or inconsistencies.
 
-```sql
+```sql+postgres
+select
+  action,
+  users,
+  source,
+  destination,
+  check_period,
+  tailnet_name
+from
+  tailscale_acl_ssh;
+```
+
+```sql+sqlite
 select
   action,
   users,
@@ -31,7 +43,7 @@ from
 ### Users who cannot connect to their own devices
 Determine the areas in which users are unable to connect to their own devices. This query can help identify potential network issues or security breaches, providing valuable insights for troubleshooting and risk management.
 
-```sql
+```sql+postgres
 with ssh_tas as (
   select
     action,
@@ -57,10 +69,36 @@ from
   join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
+```sql+sqlite
+with ssh_tas as (
+  select
+    action,
+    users,
+    src,
+    dst,
+    tailnet_name
+  from
+    tailscale_acl_ssh as tas,
+    json_each(source) as src,
+    json_each(destination) as dst
+  where
+    action <> 'check'
+    or src.value <> 'autogroup:members'
+    or dst.value <> 'autogroup:self'
+)
+select
+  distinct(td.name) as device_name,
+  td.user,
+  td.id
+from
+  tailscale_device as td
+  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
+```
+
 ### Users who are a direct member (not a shared user) of the tailnet
 Determine the areas in which users are directly linked to a specific network, not as shared users, but as primary members. This is useful for identifying potential network vulnerabilities and ensuring proper access control.
 
-```sql
+```sql+postgres
 with ssh_tas as (
   select
     action,
@@ -84,10 +122,45 @@ from
   join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
 ```
 
+```sql+sqlite
+with ssh_tas as (
+  select
+    action,
+    users,
+    src,
+    dst,
+    tailnet_name
+  from
+    tailscale_acl_ssh as tas,
+    json_each(source) as src,
+    json_each(destination) as dst
+  where
+    src.value = 'autogroup:members'
+)
+select
+  td.user,
+  td.name as device_name,
+  td.id
+from
+  tailscale_device as td
+  join ssh_tas on ssh_tas.tailnet_name = td.tailnet_name;
+```
+
 ### Users who have the check period disabled
 Explore which users have disabled the check period in their settings, allowing them to accept actions without regular checks. This can be useful in understanding potential security risks or compliance issues within your network.
 
-```sql
+```sql+postgres
+select
+  tas.users,
+  tas.action
+from
+  tailscale_acl_ssh as tas 
+  join tailscale_tailnet as tt on tas.tailnet_name = tt.tailnet_name
+  and action = 'accept'
+  and check_period is null;
+```
+
+```sql+sqlite
 select
   tas.users,
   tas.action

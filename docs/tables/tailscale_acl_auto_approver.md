@@ -16,6 +16,18 @@ The `tailscale_acl_auto_approver` table provides insights into the ACL Auto Appr
 ### Basic info
 Explore which routes are being used and identify the exit nodes and associated network names. This can help in understanding the network traffic flow and potential bottlenecks in your Tailscale network.
 
+```sql+postgres
+select
+  routes,
+  exit_node,
+  tailnet_name
+from
+  tailscale_acl_auto_approver;
+```
+
+```sql+sqlite
+The PostgreSQL query provided does not use any PostgreSQL-specific functions or data types that need to be converted to SQLite. Therefore, the SQLite query is the same as the PostgreSQL query:
+
 ```sql
 select
   routes,
@@ -23,6 +35,7 @@ select
   tailnet_name
 from
   tailscale_acl_auto_approver;
+```
 ```
 
 ### Users allowed for each route
@@ -40,7 +53,7 @@ from
 ### Exit node tags of each device
 Determine the devices that are associated with specific exit node tags in your network. This can help you manage and control the flow of network traffic, ensuring optimal performance and security.
 
-```sql
+```sql+postgres
 with tag_devices as(
   select
     id,
@@ -60,4 +73,26 @@ from
   tailscale_acl_auto_approver,
   jsonb_array_elements_text(exit_node) as en
   join tag_devices as td on en = td.tag;
+```
+
+```sql+sqlite
+with tag_devices as(
+  select
+    id,
+    d.name as device_name,
+    d.hostname as device_hostname,
+    tag
+  from
+    tailscale_device as d,
+    json_each(tags) as tag
+)
+select  
+  device_name,
+  id as device_id,
+  en.value as exit_node_tag,
+  device_hostname
+from
+  tailscale_acl_auto_approver,
+  json_each(exit_node) as en
+  join tag_devices as td on en.value = td.tag;
 ```
