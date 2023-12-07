@@ -36,7 +36,6 @@ select
 from
   tailscale_acl_auto_approver;
 ```
-```
 
 ### Users allowed for each route
 
@@ -64,7 +63,7 @@ with tag_devices as(
     tailscale_device as d,
     jsonb_array_elements_text(tags) as tag
 )
-select  
+select
   device_name,
   id as device_id,
   en as exit_node_tag,
@@ -86,7 +85,7 @@ with tag_devices as(
     tailscale_device as d,
     json_each(tags) as tag
 )
-select  
+select
   device_name,
   id as device_id,
   en.value as exit_node_tag,
