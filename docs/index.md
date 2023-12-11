@@ -8,6 +8,7 @@ short_name: "tailscale"
 description: "Steampipe plugin to query VPN networks, devices and more from tailscale."
 og_description: "Query Tailscale with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/tailscale-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Tailscale + Steampipe
