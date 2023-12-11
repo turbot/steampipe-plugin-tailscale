@@ -78,7 +78,4 @@ Environment variables are also available as an alternate configuration method:
 * `TAILSCALE_API_KEY`
 * `TAILSCALE_TAILNET`
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-tailscale
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
