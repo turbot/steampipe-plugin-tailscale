@@ -8,13 +8,14 @@ short_name: "tailscale"
 description: "Steampipe plugin to query VPN networks, devices and more from tailscale."
 og_description: "Query Tailscale with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/tailscale-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Tailscale + Steampipe
 
 [Tailscale](https://tailscale.com) is a zero config VPN which installs on any device in minutes and manages firewall rules.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
 List devices which block incoming connections in your Tailscale tailnet:
 
@@ -77,7 +78,4 @@ Environment variables are also available as an alternate configuration method:
 * `TAILSCALE_API_KEY`
 * `TAILSCALE_TAILNET`
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-tailscale
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
