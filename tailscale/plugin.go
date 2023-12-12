@@ -19,7 +19,6 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
-			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
 			"tailscale_acl_entry":         tableTailscaleAclEntry(ctx),
