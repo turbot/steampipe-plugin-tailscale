@@ -15,7 +15,7 @@ engines: ["steampipe", "sqlite", "postgres", "export"]
 
 [Tailscale](https://tailscale.com) is a zero config VPN which installs on any device in minutes and manages firewall rules.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
 List devices which block incoming connections in your Tailscale tailnet:
 
