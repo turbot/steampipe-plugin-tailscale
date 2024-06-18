@@ -35,8 +35,7 @@ func tableTailscaleAclAutoApprover(_ context.Context) *plugin.Table {
 func listTailscaleAclAutoApprovers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 
 	// retrieves the ACL that is currently set for the given tailnet.
-	getTailscaleAclCached := plugin.HydrateFunc(getTailscaleAcl).WithCache()
-	data, err := getTailscaleAclCached(ctx, d, h)
+	data, err := getTailscaleAcl(ctx, d, h)
 	if data == nil {
 		return nil, nil
 	}
