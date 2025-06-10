@@ -6,7 +6,7 @@ toolchain go1.23.2
 
 require (
 	github.com/tailscale/tailscale-client-go v1.6.0
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.6
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.7
 )
 
 require (
