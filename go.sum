@@ -1054,8 +1054,8 @@ github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsT
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/tailscale/hujson v0.0.0-20220506213045-af5ed07155e5 h1:erxeiTyq+nw4Cz5+hLDkOwNF5/9IQWCQPv0gpb3+QHU=
 github.com/tailscale/hujson v0.0.0-20220506213045-af5ed07155e5/go.mod h1:DFSS3NAGHthKo1gTlmEcSBiZrRJXi28rLNd/1udP1c8=
-github.com/tailscale/tailscale-client-go v1.6.0 h1:ZyJfRxhvTGNRvG5fQie1SEld4W4oJ9wuDa+Oja4mfBE=
-github.com/tailscale/tailscale-client-go v1.6.0/go.mod h1:yJRyNe2PoUgMw92N37oHGgKTODN4oIsdvb/ykRY+OtQ=
+github.com/tailscale/tailscale-client-go v1.17.1 h1:yt0dzkkOSnfoEUj0p2xWOj8Ojr5tFPdutZ7b0EnsK6k=
+github.com/tailscale/tailscale-client-go v1.17.1/go.mod h1:NCgVwaVphsrMhzvbbUUeJSWaGPpShpuY0V4eXcMy5bM=
 github.com/tkrajina/go-reflector v0.5.6 h1:hKQ0gyocG7vgMD2M3dRlYN6WBBOmdoOzJ6njQSepKdE=
 github.com/tkrajina/go-reflector v0.5.6/go.mod h1:ECbqLgccecY5kPmPmXg1MrHW585yMcDkVl6IvJe64T4=
 github.com/turbot/go-kit v1.1.0 h1:2gW+MFDJD+mN41GcvhAajTrwR8HgN9KKJ8HnYwPGTV0=
