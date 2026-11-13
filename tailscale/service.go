@@ -7,14 +7,14 @@ import (
 
 	"github.com/tailscale/tailscale-client-go/tailscale"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error) {
 
 	// Load connection from cache, which preserves throttling protection etc
 	cacheKey := "tailscale"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
+	if cachedData, ok := d.ConnectionCache.Get(ctx, cacheKey); ok {
 		return cachedData.(*tailscale.Client), nil
 	}
 
@@ -41,6 +41,6 @@ func connect(ctx context.Context, d *plugin.QueryData) (*tailscale.Client, error
 		return nil, err
 	}
 
-	d.ConnectionManager.Cache.Set(cacheKey, conn)
+	_ = d.ConnectionCache.Set(ctx, cacheKey, conn)
 	return conn, nil
 }
