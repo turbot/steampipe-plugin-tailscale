@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/tailscale/tailscale-client-go/tailscale"
-	"github.com/turbot/steampipe-plugin-sdk/v5/memoize"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/memoize"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 var getTailscaleAclMemoized = plugin.HydrateFunc(getTailscaleAclUncached).Memoize(memoize.WithCacheKeyFunction(getTailscaleAclCacheKey))
@@ -30,7 +30,7 @@ func getTailscaleAclUncached(ctx context.Context, d *plugin.QueryData, h *plugin
 	var err error
 	var tailscaleInfo *tailscale.ACL
 
-	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
+	if cachedData, ok := d.ConnectionCache.Get(ctx, cacheKey); ok {
 		tailscaleInfo = cachedData.(*tailscale.ACL)
 	} else {
 		client, err := connect(ctx, d)
@@ -48,6 +48,6 @@ func getTailscaleAclUncached(ctx context.Context, d *plugin.QueryData, h *plugin
 	return tailscaleInfo, err
 }
 
-func isNotFoundError(err error) bool {
+func isNotFoundError(_ context.Context, _ *plugin.QueryData, _ *plugin.HydrateData, err error) bool {
 	return strings.Contains(err.Error(), "404")
 }
